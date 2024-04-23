@@ -22,7 +22,7 @@ namespace Citas_Backend.Entities
         [Column("telefono")]
         public string Telefono { get; set; }
 
-        [Required]
+        // [Required]
         [Column("genero")]
         public string Genero { get; set; }
 

@@ -29,6 +29,10 @@ namespace Citas_Backend.Services
 
         public async Task<ResponseDto<LoginResponseDto>> LoginAsync(LoginDto dto) //lo que envia el cliente, usuario y clave
         { //creacion del login
+
+            Console.WriteLine(dto.Email);
+            Console.WriteLine(dto.Password);
+            
             var result = await _signInManager.PasswordSignInAsync(
                 dto.Email,
                 dto.Password,

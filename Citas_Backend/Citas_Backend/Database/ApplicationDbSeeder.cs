@@ -23,6 +23,8 @@ namespace Citas_Backend.Database
                 {
                     var userAdmin = new UserEntity
                     {
+                        FirstName = "Juan",
+                        LastName = "Perez",
                         Email = "jperez@me.com",
                         UserName = "jperez@me.com"
                     };
@@ -32,6 +34,8 @@ namespace Citas_Backend.Database
 
                     var normalUser = new UserEntity
                     {
+                        FirstName = "Maria",
+                        LastName = "Perez",
                         Email = "mperez@me.com",
                         UserName = "mperez@me.com"
                     };

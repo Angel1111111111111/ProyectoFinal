@@ -19,6 +19,9 @@ namespace Citas_Backend
 {
     public class Startup
     {
+
+        private readonly string _corsPolicy = "CorsPolicy";
+
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -79,9 +82,11 @@ namespace Citas_Backend
             // Configure CORS
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder =>
+                
+                options.AddPolicy(_corsPolicy, policy =>
                 {
-                    builder.WithOrigins(Configuration["FrontendURL"])
+                    policy.WithOrigins(Configuration["FrontendURL"])
+                    // policy.AllowAnyOrigin()
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });
@@ -93,8 +98,6 @@ namespace Citas_Backend
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Use CORS
-            app.UseCors("CorsPolicy");
 
             if (env.IsDevelopment())
             {
@@ -111,7 +114,8 @@ namespace Citas_Backend
 
             app.UseRouting();
 
-            
+            // Use CORS
+            app.UseCors(_corsPolicy);         
 
             // Use Authentication
             app.UseAuthentication();

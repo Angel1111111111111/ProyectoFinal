@@ -10,6 +10,7 @@ namespace Citas_Backend.Dtos.pacientes
         public string Identidad { get; set; }
         public string Telefono { get; set; }
         public string Genero { get; set; }
+
         public string CorreoElectronico { get; set; }
         public string Contraseña { get; set; }
     }

@@ -17,7 +17,7 @@ namespace Citas_Backend.Dtos.Pacientes
         [Display(Name = "telefono")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         [StringLength(maximumLength: 255, MinimumLength = 3, ErrorMessage = "El {0} debe tener entre {2} y {1} caracteres")]
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
 
         [Display(Name = "genero")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]

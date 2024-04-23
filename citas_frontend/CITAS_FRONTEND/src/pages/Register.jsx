@@ -3,18 +3,22 @@ import { NavigationBar } from '../components';
 import { InputEmailValidation } from '../validation/input-email';
 import { InputRequiredValidation } from '../validation/input-required';
 import { useNavigate } from 'react-router-dom';
+import { constants } from '../helpers/constants';
+import axios from 'axios';
 
 export const Register = () => {
     const [formData, setFormData] = useState({
         nombre: '',
         identidad: '',
         telefono: '',
-        correo: '',
+        correoElectronico: '',
         contraseña: '',
-        repetirContraseña: ''
+        repetirContraseña: '',
+        genero: 'Masculino' // agregar alguna opcion o input select
     });
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+    const { API_URL } = constants(); 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,12 +30,12 @@ export const Register = () => {
 
         let newErrors = [];
 
-        const errorEmail = InputEmailValidation('Correo Electrónico', formData.correo);
+        const errorEmail = InputEmailValidation('Correo Electrónico', formData.correoElectronico);
         if (!errorEmail.validation) {
             newErrors.push(errorEmail.message);
         }
 
-        const errorEmailRequired = InputRequiredValidation('Correo Electrónico', formData.correo);
+        const errorEmailRequired = InputRequiredValidation('Correo Electrónico', formData.correoElectronico);
         if (!errorEmailRequired.validation) {
             newErrors.push(errorEmailRequired.message);
         }
@@ -49,10 +53,10 @@ export const Register = () => {
 
         if (newErrors.length === 0) {
             try {
-                const response = await fetch('/api/register', {
+                const response = await fetch(`${API_URL}/pacientes/register`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(formData)
                 });
@@ -61,7 +65,7 @@ export const Register = () => {
                     console.log('Registro exitoso');
                     navigate('/login');
                 } else {
-                    console.error('Error al registrar');
+                    console.error('Error al registrar', response);
                 }
             } catch (error) {
                 console.error('Error de red:', error);
@@ -116,8 +120,8 @@ export const Register = () => {
                         <div className="flex flex-col space-y-1">
                             <input
                                 type="email"
-                                name="correo"
-                                value={formData.correo}
+                                name="correoElectronico"
+                                value={formData.correoElectronico}
                                 onChange={handleChange}
                                 className="appearance-none bg-transparent border-b-2 border-blue-500 w-full text-gray-800 py-2 px-3 leading-tight focus:outline-none"
                                 placeholder="Correo Electrónico"
